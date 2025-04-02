@@ -37,3 +37,19 @@ def signin_user(request):
         return Response({'message': 'Login successful', 'user': user_data}, status=200)
     else:
         return Response({'error': 'Invalid email or password'}, status=401)
+
+
+@api_view(['POST'])
+def update_location(request):
+    email = request.data.get('email')
+    latitude = request.data.get('latitude')
+    longitude = request.data.get('longitude')
+
+    try:
+        user = HotelUser.objects.get(email=email)
+        user.latitude = latitude
+        user.longitude = longitude
+        user.save()
+        return Response({"message": "Location updated successfully", "latitude": latitude, "longitude": longitude}, status=200)
+    except HotelUser.DoesNotExist:
+        return Response({"error": "User not found"}, status=404)

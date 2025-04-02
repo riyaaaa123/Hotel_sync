@@ -83,13 +83,12 @@ const LocationSelector = ({ email }) => {
 
   return (
     <div>
-      <h2>Select Your Location</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {position ? (
         <MapContainer
           center={position}
           zoom={13}
-          style={{ height: "500px", width: "100%" }}
+          style={{ height: "400px", width: "80%" }}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <LocationMarker />
@@ -97,20 +96,14 @@ const LocationSelector = ({ email }) => {
       ) : (
         <p>Fetching location...</p>
       )}
-      <button
-        onClick={saveLocation}
-        style={{
-          marginTop: "10px",
-          padding: "10px",
-          backgroundColor: "#4CAF50",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        Save Location
-      </button>
+      <div className="mt-8">
+        <button
+          onClick={saveLocation}
+          className="text-sm flex h-10 cursor-pointer items-center justify-center gap-2 rounded-md border-none bg-brand-600 px-5 hover:bg-brand-500 active:bg-brand-600 disabled:cursor-default disabled:bg-neutral-200 hover:disabled:cursor-default hover:disabled:bg-neutral-200 active:disabled:cursor-default active:disabled:bg-neutral-200 text-white"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

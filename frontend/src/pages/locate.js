@@ -13,8 +13,9 @@ const LocationSelector = dynamic(
   { ssr: false }
 );
 
-function OnboardingLocationStep3({email}) {
+function OnboardingLocationStep3() {
     const [location, setLocation] = useState(null);
+    const email = localStorage.getItem("email");
 
   return (
     <div className="min-h-screen w-[100vw] bg-white">

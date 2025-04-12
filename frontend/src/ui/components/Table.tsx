@@ -8,8 +8,9 @@
  */
 
 import React from "react";
-import * as SubframeCore from "@subframe/core";
+import * as SubframeUtils from "../utils";
 import { DropdownMenu } from "./DropdownMenu";
+import * as SubframeCore from "@subframe/core";
 
 interface RowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   children?: React.ReactNode;
@@ -23,7 +24,7 @@ const Row = React.forwardRef<HTMLElement, RowProps>(function Row(
 ) {
   return (
     <tr
-      className={SubframeCore.twClassNames(
+      className={SubframeUtils.twClassNames(
         "group/5d119f8d border-t border-solid border-neutral-border",
         { "hover:bg-neutral-50": clickable },
         className
@@ -48,7 +49,7 @@ const Cell = React.forwardRef<HTMLElement, CellProps>(function Cell(
   return (
     <td {...otherProps}>
       <div
-        className={SubframeCore.twClassNames(
+        className={SubframeUtils.twClassNames(
           "flex h-12 w-full items-center gap-1 px-3",
           className
         )}
@@ -93,7 +94,7 @@ const HeaderCell = React.forwardRef<HTMLElement, HeaderCellProps>(
     return (
       <th {...otherProps}>
         <div
-          className={SubframeCore.twClassNames(
+          className={SubframeUtils.twClassNames(
             "flex h-8 w-full items-center gap-1 px-3",
             className
           )}
@@ -127,7 +128,7 @@ const TableRoot = React.forwardRef<HTMLElement, TableRootProps>(
   ) {
     return (
       <table
-        className={SubframeCore.twClassNames("w-full", className)}
+        className={SubframeUtils.twClassNames("w-full", className)}
         ref={ref as any}
         {...otherProps}
       >

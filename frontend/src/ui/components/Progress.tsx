@@ -5,6 +5,7 @@
  */
 
 import React from "react";
+import * as SubframeUtils from "../utils";
 import * as SubframeCore from "@subframe/core";
 
 interface IndicatorProps
@@ -17,7 +18,7 @@ const Indicator = React.forwardRef<HTMLElement, IndicatorProps>(
     return (
       <SubframeCore.Progress.Indicator asChild={true} {...otherProps}>
         <div
-          className={SubframeCore.twClassNames(
+          className={SubframeUtils.twClassNames(
             "flex h-2 w-full flex-col items-start gap-2 rounded-full bg-brand-600",
             className
           )}
@@ -42,7 +43,7 @@ const ProgressRoot = React.forwardRef<HTMLElement, ProgressRootProps>(
     return (
       <SubframeCore.Progress.Root asChild={true} value={value} {...otherProps}>
         <div
-          className={SubframeCore.twClassNames(
+          className={SubframeUtils.twClassNames(
             "flex w-full flex-col items-start gap-2 overflow-hidden rounded-full bg-neutral-100",
             className
           )}

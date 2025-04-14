@@ -5,6 +5,7 @@
  */
 
 import React from "react";
+import * as SubframeUtils from "../utils";
 import * as SubframeCore from "@subframe/core";
 
 interface OnboardingStepItemRootProps
@@ -32,7 +33,7 @@ const OnboardingStepItemRoot = React.forwardRef<
 ) {
   return (
     <div
-      className={SubframeCore.twClassNames(
+      className={SubframeUtils.twClassNames(
         "group/5334e65d flex w-full cursor-pointer items-center gap-4 overflow-hidden rounded-md px-4 py-3 hover:bg-neutral-50",
         {
           "border-none": completed,
@@ -44,14 +45,14 @@ const OnboardingStepItemRoot = React.forwardRef<
       {...otherProps}
     >
       <SubframeCore.Icon
-        className={SubframeCore.twClassNames(
+        className={SubframeUtils.twClassNames(
           "text-heading-3 font-heading-3 text-default-font",
           { "hidden text-subtext-color": completed, "text-brand-700": selected }
         )}
         name={icon}
       />
       <SubframeCore.Icon
-        className={SubframeCore.twClassNames(
+        className={SubframeUtils.twClassNames(
           "hidden text-body font-body text-white",
           {
             "inline-flex text-heading-3 font-heading-3 text-brand-700":
@@ -63,7 +64,7 @@ const OnboardingStepItemRoot = React.forwardRef<
       />
       {children ? (
         <span
-          className={SubframeCore.twClassNames(
+          className={SubframeUtils.twClassNames(
             "grow shrink-0 basis-0 text-body-bold font-body-bold text-subtext-color",
             { "text-default-font": completed, "text-brand-700": selected }
           )}

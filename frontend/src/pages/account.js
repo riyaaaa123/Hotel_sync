@@ -74,6 +74,7 @@ function OnboardingLocationStep2() {
 
       if (response.status === 201) {
         localStorage.setItem("email", formData.email);
+        localStorage.setItem("id", response.data.id);
         localStorage.removeItem("hotelDetails");
         router.push("/locate");
       }

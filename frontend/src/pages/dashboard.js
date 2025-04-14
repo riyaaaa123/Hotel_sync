@@ -7,8 +7,10 @@ import * as SubframeCore from "@subframe/core";
 import { IconButton } from "@/ui/components/IconButton";
 import { Badge } from "@/ui/components/Badge";
 import { Table } from "@/ui/components/Table";
+import { useRouter } from "next/navigation";
 
 function DashboardWithTable() {
+  const router = useRouter();
   return (
     <div className="w-[100vw] min-h-screen bg-white">
       <div className="flex h-full w-full flex-col items-start gap-6 bg-default-background px-6 py-6 mobile:container mobile:max-w-none">
@@ -58,7 +60,7 @@ function DashboardWithTable() {
           </div>
           <div className="flex items-center gap-2">
             <IconButton icon="FeatherRefreshCw" onClick={() => {}} />
-            <IconButton icon="FeatherSettings" onClick={() => {}} />
+            <IconButton icon="FeatherSettings" onClick={() => {router.push('/inventory')}} />
           </div>
         </div>
         <div className="flex w-full flex-wrap items-start gap-4">

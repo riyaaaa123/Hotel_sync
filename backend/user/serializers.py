@@ -15,4 +15,4 @@ class InventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Inventory
         fields = '__all__'
-        read_only_fields = ('last_updated')
+        read_only_fields = ['last_updated']

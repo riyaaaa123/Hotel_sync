@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.parsers import MultiPartParser, FormParser
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.hashers import make_password
-from .models import HotelUser
-from .serializers import HotelUserSerializer
+from .models import HotelUser,JSONUpload,Inventory
+from .serializers import HotelUserSerializer,JSONUploadSerializer,InventorySerializer
 
 @api_view(['POST'])
 def create_user(request):
@@ -33,6 +34,7 @@ def signin_user(request):
             'hotel_name': user.hotel_name,
             'email': user.email,
             'owner_name': user.owner_name,
+            'id' : user.id,
         }
         return Response({'message': 'Login successful', 'user': user_data}, status=200)
     else:
@@ -53,3 +55,13 @@ def update_location(request):
         return Response({"message": "Location updated successfully", "latitude": latitude, "longitude": longitude}, status=200)
     except HotelUser.DoesNotExist:
         return Response({"error": "User not found"}, status=404)
+    
+@api_view(['POST'])
+def upload_json(request):
+    parser_classes = (MultiPartParser, FormParser)
+    
+    serializer = JSONUploadSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "JSON file uploaded successfully", "data": serializer.data}, status=201)
+    return Response(serializer.errors, status=400)

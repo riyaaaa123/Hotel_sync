@@ -88,7 +88,7 @@ function OnboardingLocationStep4() {
         <div className="flex w-80 flex-none flex-col items-start self-stretch border-r border-solid border-neutral-border mobile:w-full mobile:border-b mobile:px-0 mobile:py-0">
           <div className="flex w-full flex-col items-start gap-4 border-b border-solid border-neutral-border px-6 py-6">
             <div className="flex w-full flex-col items-start gap-1">
-              <span className="w-full text-heading-3 font-heading-3 text-default-font">
+              <span className="w-full text-heading-3 font-heading-3 text-default-font text-xl">
                 Getting started
               </span>
               <span className="text-body font-body text-subtext-color">
@@ -120,13 +120,10 @@ function OnboardingLocationStep4() {
         <div className="flex grow shrink-0 basis-0 flex-col items-start gap-6 self-stretch px-6 py-6 mobile:h-auto mobile:w-full mobile:flex-none mobile:flex-col mobile:flex-nowrap mobile:gap-4 mobile:px-0 mobile:py-0">
           <div className="flex flex-col items-start gap-4 mobile:h-auto mobile:w-full mobile:flex-none">
             <div className="flex w-full items-center justify-between">
-              <span className="text-heading-3 font-heading-3 text-default-font">
+              <span className="text-heading-3 font-heading-3 text-default-font text-xl">
                 Upload Data
               </span>
-              <Button
-                variant="brand-secondary"
-                onClick={() => {}}
-              >
+              <Button variant="brand-secondary" onClick={() => {}}>
                 Download Template
               </Button>
             </div>

@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import predict_bookings_and_cancellations
+from .views import predict_from_latest_file
 
 urlpatterns = [
-    path("predict/", predict_bookings_and_cancellations, name="predict"),
+    path('predict/', predict_from_latest_file),
 ]

@@ -8,12 +8,13 @@ import { IconButton } from "@/ui/components/IconButton";
 import { Badge } from "@/ui/components/Badge";
 import { Table } from "@/ui/components/Table";
 import { useRouter } from "next/navigation";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import axios from "axios";
-
 
 function DashboardWithTable() {
   const [inventory, setInventory] = useState([]);
+  const [predictedBookings, setPredictedBookings] = useState(null);
+  const [predictedCancellations, setPredictedCancellations] = useState(null);
   const router = useRouter();
   const today = new Date();
   const formattedToday = format(today, "MM/dd/yy");
@@ -23,6 +24,7 @@ function DashboardWithTable() {
     const userId = localStorage.getItem("id");
     if (!userId) return;
 
+    // Fetch inventory
     axios
       .get(`http://127.0.0.1:8000/user/get_inventory/?id=${userId}`, {
         headers: {
@@ -31,6 +33,15 @@ function DashboardWithTable() {
       })
       .then((res) => setInventory(res.data))
       .catch((err) => console.error("Error fetching inventory:", err));
+
+    // Fetch predictions
+    axios
+      .get("http://localhost:8000/api/predict/")
+      .then((res) => {
+        setPredictedBookings(res.data.predicted_bookings);
+        setPredictedCancellations(res.data.predicted_cancellations);
+      })
+      .catch((err) => console.error("Error fetching predictions:", err));
   }, []);
 
   return (
@@ -99,7 +110,7 @@ function DashboardWithTable() {
             <div className="flex w-full flex-col items-start gap-2">
               <div className="flex items-center gap-2">
                 <span className="text-heading-2 font-heading-2 text-default-font">
-                  3,203
+                  {predictedBookings ?? "Loading..."}
                 </span>
                 <SubframeCore.Icon
                   className="text-body-bold font-body-bold text-default-font"
@@ -107,6 +118,7 @@ function DashboardWithTable() {
                 />
               </div>
               <Badge variant="success" icon="FeatherArrowUp">
+                {/* Optional: You can calculate % change if needed */}
                 13% than last week
               </Badge>
             </div>
@@ -118,7 +130,7 @@ function DashboardWithTable() {
             </span>
             <div className="flex w-full flex-col items-start gap-2">
               <span className="text-heading-2 font-heading-2 text-default-font">
-                123
+                {predictedCancellations ?? "Loading..."}
               </span>
               <Badge variant="error" icon="FeatherArrowDown">
                 33% than last week

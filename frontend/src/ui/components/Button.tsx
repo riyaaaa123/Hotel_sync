@@ -5,6 +5,7 @@
  */
 
 import React from "react";
+import * as SubframeUtils from "../utils";
 import * as SubframeCore from "@subframe/core";
 
 interface ButtonRootProps
@@ -46,8 +47,8 @@ const ButtonRoot = React.forwardRef<HTMLElement, ButtonRootProps>(
   ) {
     return (
       <button
-        className={SubframeCore.twClassNames(
-          "group/3b777358 flex h-10 cursor-pointer items-center justify-center gap-2 rounded-md border-none bg-brand-600 px-5 hover:bg-brand-500 active:bg-brand-600 disabled:cursor-default disabled:bg-neutral-200 hover:disabled:cursor-default hover:disabled:bg-neutral-200 active:disabled:cursor-default active:disabled:bg-neutral-200",
+        className={SubframeUtils.twClassNames(
+          "group/3b777358 flex h-8 cursor-pointer items-center justify-center gap-2 rounded-md border-none bg-brand-600 px-3 hover:bg-brand-500 active:bg-brand-600 disabled:cursor-default disabled:bg-neutral-200 hover:disabled:cursor-default hover:disabled:bg-neutral-200 active:disabled:cursor-default active:disabled:bg-neutral-200",
           {
             "h-6 w-auto flex-row flex-nowrap gap-1 px-2 py-0": size === "small",
             "h-10 w-auto px-4 py-0": size === "large",
@@ -77,7 +78,7 @@ const ButtonRoot = React.forwardRef<HTMLElement, ButtonRootProps>(
         {...otherProps}
       >
         <SubframeCore.Icon
-          className={SubframeCore.twClassNames(
+          className={SubframeUtils.twClassNames(
             "text-body font-body text-white group-disabled/3b777358:text-neutral-400",
             {
               hidden: loading,
@@ -98,13 +99,13 @@ const ButtonRoot = React.forwardRef<HTMLElement, ButtonRootProps>(
           name={icon}
         />
         <div
-          className={SubframeCore.twClassNames(
+          className={SubframeUtils.twClassNames(
             "hidden h-4 w-4 flex-none items-center justify-center gap-2",
             { flex: loading, "h-3 w-3 flex-none": size === "small" }
           )}
         >
           <SubframeCore.Loader
-            className={SubframeCore.twClassNames(
+            className={SubframeUtils.twClassNames(
               "text-caption font-caption text-white group-disabled/3b777358:text-neutral-400",
               {
                 "inline-block font-['Inter'] text-[12px] font-[400] leading-[20px] tracking-normal":
@@ -125,7 +126,7 @@ const ButtonRoot = React.forwardRef<HTMLElement, ButtonRootProps>(
         </div>
         {children ? (
           <span
-            className={SubframeCore.twClassNames(
+            className={SubframeUtils.twClassNames(
               "whitespace-nowrap text-body-bold font-body-bold text-white group-disabled/3b777358:text-neutral-400",
               {
                 hidden: loading,
@@ -148,7 +149,7 @@ const ButtonRoot = React.forwardRef<HTMLElement, ButtonRootProps>(
           </span>
         ) : null}
         <SubframeCore.Icon
-          className={SubframeCore.twClassNames(
+          className={SubframeUtils.twClassNames(
             "text-body font-body text-white group-disabled/3b777358:text-neutral-400",
             {
               "text-body font-body": size === "small",

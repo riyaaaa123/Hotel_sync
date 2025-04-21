@@ -1,11 +1,57 @@
 "use client";
-import React from "react";
+import React,{useState} from "react";
 import { Progress } from "@/ui/components/Progress";
 import { OnboardingStepItem } from "@/ui/components/OnboardingStepItem";
 import { TextField } from "@/ui/components/TextField";
 import { Button } from "@/ui/components/Button";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 function OnboardingLocationStep1() {
+   const router = useRouter();
+   const [formData, setFormData] = useState({
+     owner_name: "",
+     hotel_name: "",
+     contact_number: "",
+   });
+   const [loading, setLoading] = useState(false);
+   const [errors, setErrors] = useState({});
+
+   const handleChange = (e) => {
+     const { name, value } = e.target;
+     setFormData((prev) => ({
+       ...prev,
+       [name]: value,
+     }));
+   };
+
+   const handleSubmit = async () => {
+     setLoading(true);
+     try {
+       // Validate form
+       const newErrors = {};
+       if (!formData.hotel_name.trim())
+         newErrors.hotel_name = "Hotel name is required";
+       if (!formData.owner_name.trim())
+         newErrors.owner_name = "Owner name is required";
+       if (!formData.contact_number.trim())
+         newErrors.contact_number = "Contact number is required";
+
+       if (Object.keys(newErrors).length > 0) {
+         setErrors(newErrors);
+         return;
+       }
+
+       // Store in local storage to use in next steps
+       localStorage.setItem("hotelDetails", JSON.stringify(formData));
+       router.push("/account");
+     } catch (error) {
+       console.error("Error saving hotel details:", error);
+     } finally {
+       setLoading(false);
+     }
+   };
+
   return (
     <div className="min-h-screen w-[100vw] bg-white">
       <div className="container max-w-none flex h-full w-full items-start mobile:flex-col mobile:flex-nowrap mobile:gap-6">
@@ -49,27 +95,47 @@ function OnboardingLocationStep1() {
             <TextField
               className="h-auto w-full flex-none mobile:h-auto mobile:w-full mobile:flex-none"
               label="Hotel Name"
-              helpText=""
+              helpText={errors.hotel_name}
+              error={!!errors.hotel_name}
             >
-              <TextField.Input placeholder="" value="" onChange={() => {}} />
+              <TextField.Input
+                placeholder="Enter hotel name"
+                name="hotel_name"
+                value={formData.hotel_name}
+                onChange={handleChange}
+              />
             </TextField>
             <TextField
               className="h-auto w-full flex-none"
               label="Owner Name"
-              helpText=""
+              helpText={errors.owner_name}
+              error={!!errors.owner_name}
             >
-              <TextField.Input placeholder="" value="" onChange={() => {}} />
+              <TextField.Input
+                placeholder="Enter owner name"
+                name="owner_name"
+                value={formData.owner_name}
+                onChange={handleChange}
+              />
             </TextField>
             <TextField
               className="h-auto w-full flex-none"
               label="Contact Number"
-              helpText=""
+              helpText={errors.contact_number}
+              error={!!errors.contact_number}
             >
-              <TextField.Input placeholder="" value="" onChange={() => {}} />
+              <TextField.Input
+                placeholder="Enter contact number"
+                name="contact_number"
+                value={formData.contact_number}
+                onChange={handleChange}
+              />
             </TextField>
           </div>
           <div className="flex w-full items-center ">
-            <Button onClick={() => {}}>Next</Button>
+            <Button onClick={handleSubmit} loading={loading} disabled={loading}>
+              Next
+            </Button>
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@
  */
 
 import React from "react";
+import * as SubframeUtils from "../utils";
 import * as SubframeCore from "@subframe/core";
 
 interface InputProps
@@ -21,7 +22,7 @@ const Input = React.forwardRef<HTMLElement, InputProps>(function Input(
 ) {
   return (
     <input
-      className={SubframeCore.twClassNames(
+      className={SubframeUtils.twClassNames(
         "h-full w-full border-none bg-transparent text-body font-body text-default-font outline-none placeholder:text-neutral-400",
         className
       )}
@@ -63,7 +64,7 @@ const TextFieldRoot = React.forwardRef<HTMLElement, TextFieldRootProps>(
   ) {
     return (
       <label
-        className={SubframeCore.twClassNames(
+        className={SubframeUtils.twClassNames(
           "group/be48ca43 flex flex-col items-start gap-1",
           className
         )}
@@ -71,12 +72,12 @@ const TextFieldRoot = React.forwardRef<HTMLElement, TextFieldRootProps>(
         {...otherProps}
       >
         {label ? (
-          <span className="text-caption-bold font-caption-bold text-[13px] text-default-font">
+          <span className="text-caption-bold font-caption-bold text-default-font">
             {label}
           </span>
         ) : null}
         <div
-          className={SubframeCore.twClassNames(
+          className={SubframeUtils.twClassNames(
             "flex h-8 w-full flex-none items-center gap-1 rounded-md border border-solid border-neutral-border bg-default-background px-2 group-focus-within/be48ca43:border group-focus-within/be48ca43:border-solid group-focus-within/be48ca43:border-brand-primary",
             {
               "border border-solid border-neutral-100 bg-neutral-100 group-hover/be48ca43:border group-hover/be48ca43:border-solid group-hover/be48ca43:border-neutral-border group-focus-within/be48ca43:bg-default-background":
@@ -96,7 +97,7 @@ const TextFieldRoot = React.forwardRef<HTMLElement, TextFieldRootProps>(
             </div>
           ) : null}
           <SubframeCore.Icon
-            className={SubframeCore.twClassNames(
+            className={SubframeUtils.twClassNames(
               "text-body font-body text-subtext-color",
               { "text-error-500": error }
             )}
@@ -105,7 +106,7 @@ const TextFieldRoot = React.forwardRef<HTMLElement, TextFieldRootProps>(
         </div>
         {helpText ? (
           <span
-            className={SubframeCore.twClassNames(
+            className={SubframeUtils.twClassNames(
               "text-caption font-caption text-subtext-color",
               { "text-error-700": error }
             )}

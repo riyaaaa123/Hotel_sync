@@ -5,6 +5,7 @@
  */
 
 import React from "react";
+import * as SubframeUtils from "../utils";
 import * as SubframeCore from "@subframe/core";
 
 interface BadgeRootProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -29,7 +30,7 @@ const BadgeRoot = React.forwardRef<HTMLElement, BadgeRootProps>(
   ) {
     return (
       <div
-        className={SubframeCore.twClassNames(
+        className={SubframeUtils.twClassNames(
           "group/97bdb082 flex h-6 items-center gap-1 rounded-md border border-solid border-brand-100 bg-brand-100 px-2",
           {
             "border border-solid border-success-100 bg-success-100":
@@ -47,7 +48,7 @@ const BadgeRoot = React.forwardRef<HTMLElement, BadgeRootProps>(
         {...otherProps}
       >
         <SubframeCore.Icon
-          className={SubframeCore.twClassNames(
+          className={SubframeUtils.twClassNames(
             "text-caption font-caption text-brand-700",
             {
               "text-success-800": variant === "success",
@@ -60,7 +61,7 @@ const BadgeRoot = React.forwardRef<HTMLElement, BadgeRootProps>(
         />
         {children ? (
           <span
-            className={SubframeCore.twClassNames(
+            className={SubframeUtils.twClassNames(
               "whitespace-nowrap text-caption font-caption text-brand-800",
               {
                 "text-success-800": variant === "success",
@@ -74,7 +75,7 @@ const BadgeRoot = React.forwardRef<HTMLElement, BadgeRootProps>(
           </span>
         ) : null}
         <SubframeCore.Icon
-          className={SubframeCore.twClassNames(
+          className={SubframeUtils.twClassNames(
             "text-caption font-caption text-brand-700",
             {
               "text-success-800": variant === "success",

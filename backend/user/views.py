@@ -81,3 +81,12 @@ def create_inventory(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except HotelUser.DoesNotExist:
         return Response({'error': 'Hotel not found'}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+def get_inventory(request):
+    try:
+        inventory = Inventory.objects.filter(hotel=request.query_params.get('id'))
+        serializer = InventorySerializer(inventory, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Inventory.DoesNotExist:
+        return Response({'error': 'Inventory not found'}, status=status.HTTP_404_NOT_FOUND)

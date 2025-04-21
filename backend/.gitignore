@@ -1,1 +1,4 @@
 wnv/
+json_files/
+booking_model.pkl
+cancellation_model.pkl

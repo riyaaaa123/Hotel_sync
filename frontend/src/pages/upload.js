@@ -123,9 +123,11 @@ function OnboardingLocationStep4() {
               <span className="text-heading-3 font-heading-3 text-default-font text-xl">
                 Upload Data
               </span>
-              <Button variant="brand-secondary" onClick={() => {}}>
-                Download Template
-              </Button>
+              <a href="/template.csv" download>
+                <Button variant="brand-secondary">
+                  Download Template
+                </Button>
+              </a>
             </div>
             <div className="flex w-full flex-col items-start rounded-md border border-solid border-neutral-border bg-default-background shadow-sm">
               <div className="flex w-full items-center gap-2 border-b border-solid border-neutral-border px-6 py-4">

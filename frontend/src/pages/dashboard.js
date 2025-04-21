@@ -14,6 +14,8 @@ import axios from "axios";
 
 function DashboardWithTable() {
   const [inventory, setInventory] = useState([]);
+  const [predictedBookings, setPredictedBookings] = useState(null);
+  const [predictedCancellations, setPredictedCancellations] = useState(null);
   const router = useRouter();
   const today = new Date();
   const formattedToday = format(today, "MM/dd/yy");
@@ -31,6 +33,14 @@ function DashboardWithTable() {
       })
       .then((res) => setInventory(res.data))
       .catch((err) => console.error("Error fetching inventory:", err));
+
+      axios
+      .get("http://localhost:8000/api/predict/")
+      .then((res) => {
+        setPredictedBookings(res.data.predicted_bookings);
+        setPredictedCancellations(res.data.predicted_cancellations);
+      })
+      .catch((err) => console.error("Error fetching predictions:", err));
   }, []);
 
   return (
@@ -99,16 +109,13 @@ function DashboardWithTable() {
             <div className="flex w-full flex-col items-start gap-2">
               <div className="flex items-center gap-2">
                 <span className="text-heading-2 font-heading-2 text-default-font">
-                  3,203
+                {predictedBookings ?? "Loading..."}
                 </span>
                 <SubframeCore.Icon
                   className="text-body-bold font-body-bold text-default-font"
                   name="FeatherEdit"
                 />
               </div>
-              <Badge variant="success" icon="FeatherArrowUp">
-                13% than last week
-              </Badge>
             </div>
           </div>
 
@@ -118,11 +125,8 @@ function DashboardWithTable() {
             </span>
             <div className="flex w-full flex-col items-start gap-2">
               <span className="text-heading-2 font-heading-2 text-default-font">
-                123
+              {predictedCancellations ?? "Loading..."}
               </span>
-              <Badge variant="error" icon="FeatherArrowDown">
-                33% than last week
-              </Badge>
             </div>
           </div>
         </div>
@@ -161,8 +165,8 @@ function DashboardWithTable() {
                 </Table.Cell>
                 <Table.Cell>
                   <Button variant="brand-secondary" onClick={() => {}}>
-                    Order {item.daily_quantity} {item.name}{" "}
-                    {item.order_frequency.toLowerCase() === "daily"
+                  Order {Math.floor((predictedBookings - predictedCancellations) * item.daily_quantity)} {item.name}{" "}
+                  {item.order_frequency.toLowerCase() === "daily"
                       ? "Today"
                       : `on ${weekDay}`}
                   </Button>

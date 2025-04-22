@@ -6,8 +6,8 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 
 # Load models once at the top
-booking_model = joblib.load("booking_model.pkl")
-cancellation_model = joblib.load("cancellation_model.pkl")
+booking_model = joblib.load("booking_model11.pkl")
+cancellation_model = joblib.load("cancellation_model11.pkl")
 
 @api_view(['GET'])
 def predict_from_latest_file(request):

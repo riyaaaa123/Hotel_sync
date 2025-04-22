@@ -6,6 +6,7 @@ import { TextField } from "@/ui/components/TextField";
 import { Button } from "@/ui/components/Button";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { LinkButton } from "@/ui/components/LinkButton";
 
 function OnboardingLocationStep1() {
    const router = useRouter();
@@ -136,6 +137,14 @@ function OnboardingLocationStep1() {
             <Button onClick={handleSubmit} loading={loading} disabled={loading}>
               Next
             </Button>
+          </div>
+          <div className="flex flex-wrap items-start gap-2 ">
+            <span className="text-body font-body text-black">
+              Already have an account?
+            </span>
+            <LinkButton className="mt-[-2]" variant="brand" onClick={() => router.push("/login")}>
+              Login
+            </LinkButton>
           </div>
         </div>
       </div>

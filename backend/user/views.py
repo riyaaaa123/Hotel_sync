@@ -90,3 +90,16 @@ def get_inventory(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Inventory.DoesNotExist:
         return Response({'error': 'Inventory not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['GET'])
+def get_hotel_name(request):
+    user_id = request.GET.get('id')
+    if not user_id:
+        return Response({"error": "ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        hotel_user = HotelUser.objects.get(id=user_id)
+        serializer = HotelUserSerializer(hotel_user)
+        return Response(serializer.data)
+    except HotelUser.DoesNotExist:
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)

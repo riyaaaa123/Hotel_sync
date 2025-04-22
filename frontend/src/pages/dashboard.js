@@ -20,6 +20,7 @@ function DashboardWithTable() {
   const today = new Date();
   const formattedToday = format(today, "MM/dd/yy");
   const weekDay = format(today, "EEEE");
+  const [hotelName, setHotelName] = useState("Hotel Name Loading...");
 
   useEffect(() => {
     const userId = localStorage.getItem("id");
@@ -33,6 +34,11 @@ function DashboardWithTable() {
       })
       .then((res) => setInventory(res.data))
       .catch((err) => console.error("Error fetching inventory:", err));
+
+      axios
+        .get(`http://127.0.0.1:8000/user/get_hotelname/?id=${userId}`)
+        .then((res) => setHotelName(res.data.hotel_name))
+        .catch((err) => console.error("Error fetching hotel name:", err));
 
       axios
       .get("http://localhost:8000/api/predict/")
@@ -61,7 +67,7 @@ function DashboardWithTable() {
               icon="FeatherLocateFixed"
               iconRight="FeatherChevronDown"
             >
-              Prakash Hotel, Roorkee, Uttarakhand
+              {hotelName}
             </Button>
 
             <SubframeCore.Popover.Root>
@@ -109,12 +115,9 @@ function DashboardWithTable() {
             <div className="flex w-full flex-col items-start gap-2">
               <div className="flex items-center gap-2">
                 <span className="text-heading-2 font-heading-2 text-default-font">
-                {predictedBookings ?? "Loading..."}
+                  {predictedBookings ?? "Loading..."}
                 </span>
-                <SubframeCore.Icon
-                  className="text-body-bold font-body-bold text-default-font"
-                  name="FeatherEdit"
-                />
+                
               </div>
             </div>
           </div>
@@ -125,7 +128,7 @@ function DashboardWithTable() {
             </span>
             <div className="flex w-full flex-col items-start gap-2">
               <span className="text-heading-2 font-heading-2 text-default-font">
-              {predictedCancellations ?? "Loading..."}
+                {predictedCancellations ?? "Loading..."}
               </span>
             </div>
           </div>
@@ -165,8 +168,13 @@ function DashboardWithTable() {
                 </Table.Cell>
                 <Table.Cell>
                   <Button variant="brand-secondary" onClick={() => {}}>
-                  Order {Math.floor((predictedBookings - predictedCancellations) * item.daily_quantity)} {item.name}{" "}
-                  {item.order_frequency.toLowerCase() === "daily"
+                    Order{" "}
+                    {Math.floor(
+                      (predictedBookings - predictedCancellations) *
+                        item.daily_quantity
+                    )}{" "}
+                    {item.name}{" "}
+                    {item.order_frequency.toLowerCase() === "daily"
                       ? "Today"
                       : `on ${weekDay}`}
                   </Button>
